@@ -6,7 +6,7 @@ const Sidebar = () => {
     const [hotel, setHotel] = useState([]);
     const { setCoordinates } = useCoordinateContext();
     const [place, setPlace] = useState("")
-    
+
     const handleSearch = async () => {
       if (place) {
         const bingMapKey = "AqGrMcJvoHh0AwTxWEVhPsT4sdT5xxgOVRe_T-CUas8poD6tGAQuuMLGDBDHDMDj";
@@ -19,7 +19,6 @@ const Sidebar = () => {
           );
   
           const coordinates = await response.json();
-
           const location = coordinates.resourceSets[0].resources[0].point.coordinates;
           const [latitude, longitude] = location;
           console.log(location)
