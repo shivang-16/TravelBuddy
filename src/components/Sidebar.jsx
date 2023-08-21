@@ -1,15 +1,17 @@
 import React,{useState} from 'react'
 import { getHotel } from '../apis/Hotel'
 import { useCoordinateContext } from './CoordinateContext'
+
 const Sidebar = () => {
 
     const [hotel, setHotel] = useState([]);
     const { setCoordinates } = useCoordinateContext();
     const [place, setPlace] = useState("")
-
+    const bingMapApiKey = "AqGrMcJvoHh0AwTxWEVhPsT4sdT5xxgOVRe_T-CUas8poD6tGAQuuMLGDBDHDMDj"
+  
     const handleSearch = async () => {
       if (place) {
-        const bingMapKey = "AqGrMcJvoHh0AwTxWEVhPsT4sdT5xxgOVRe_T-CUas8poD6tGAQuuMLGDBDHDMDj";
+        const bingMapKey = bingMapApiKey
         try {
           console.log("fetching coord...")
           const response = await fetch(
@@ -48,12 +50,12 @@ const Sidebar = () => {
           />
           <button onClick={handleSearch}>Search</button>
         </div>
-          
+          <div className='sidebar-content'>
           {hotel ? (
             hotel.length > 0 ? (
               hotel.map((element, index) => {
-                const { name, photo , location_string} = element;
-                const cardImg = photo?.images?.original?.url; 
+                const { name, photo} = element;
+                const cardImg = photo?.images?.large?.url; 
                 const defaultImg =
                   "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80";
   
@@ -69,7 +71,7 @@ const Sidebar = () => {
                     </div>
                     <div className="content-box card-details">
                       {/* <img src={location} alt=""/> */}
-                      <p id="eventLocation">{location_string}</p>
+                      <p id="eventLocation">{}</p>
                     </div>
                     <div className="content-box card-details">
                       {/* <img src={date} alt=""/> */}
@@ -92,6 +94,7 @@ const Sidebar = () => {
           ) : (
             <p>It might seems you network is slow...</p>
           )}
+          </div>
         </div>
       </>
     );

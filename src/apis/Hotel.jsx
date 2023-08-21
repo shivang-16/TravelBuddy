@@ -3,7 +3,7 @@ import axios from 'axios';
 export const getHotel = async ( latitude= '12.91285', longitude= '100.87808') => {
   const options = {
     method: 'GET',
-    url: 'https://travel-advisor.p.rapidapi.com/hotels/list-by-latlng',
+    url: 'https://travel-advisor.p.rapidapi.com/restaurants/list-by-latlng',
     params: {
       latitude: latitude,
       longitude: longitude,
