@@ -2,22 +2,36 @@ import React,{useState} from 'react'
 import { getHotel } from '../apis/Hotel'
 import { useCoordinateContext } from './CoordinateContext'
 const Sidebar = () => {
+
     const [hotel, setHotel] = useState([]);
     const { setCoordinates } = useCoordinateContext();
-    const [latitudeInput, setLatitudeInput] = useState('');
-    const [longitudeInput, setLongitudeInput] = useState('');
-  
+    const [place, setPlace] = useState("")
+
     const handleSearch = async () => {
-      if (latitudeInput && longitudeInput) {
-        const data = await getHotel(latitudeInput, longitudeInput);
-        console.log(data);
-        setHotel(data);
-        if (data.length > 0) {
-          const { latitude, longitude } = data[0];
-          setCoordinates({ latitude, longitude });
-        
-        } else {
-          console.log("No data fetched");
+      if (place) {
+        const bingMapKey = "AqGrMcJvoHh0AwTxWEVhPsT4sdT5xxgOVRe_T-CUas8poD6tGAQuuMLGDBDHDMDj";
+        try {
+          console.log("fetching coord...")
+          const response = await fetch(
+            `http://dev.virtualearth.net/REST/v1/Locations?q=${encodeURIComponent(
+              place
+            )}&key=${bingMapKey}`
+          );
+  
+          const coordinates = await response.json();
+          const location = coordinates.resourceSets[0].resources[0].point.coordinates;
+          const [latitude, longitude] = location;
+          console.log(location)
+          setCoordinates({latitude,longitude})
+  
+    
+          // Fetching hotel data
+          const hotelData = await getHotel(latitude, longitude);
+          setHotel(hotelData);
+          console.log(hotelData)
+        } catch (error) {
+          console.log(error);
+          setHotel([]);
         }
       }
     };
@@ -26,17 +40,11 @@ const Sidebar = () => {
       <>
         <div className='side-bar-card-area'>
         <div className='search-bar'>
-          <input
-            type='search'
-            placeholder='Enter latitude'
-            value={latitudeInput}
-            onChange={(e) => setLatitudeInput(e.target.value)}
-          />
-          <input
-            type='search'
-            placeholder='Enter longitude'
-            value={longitudeInput}
-            onChange={(e) => setLongitudeInput(e.target.value)}
+        <input
+            type="search"
+            placeholder="Enter latitude"
+            value={place}
+            onChange={(e) => setPlace(e.target.value)}
           />
           <button onClick={handleSearch}>Search</button>
         </div>
@@ -45,7 +53,7 @@ const Sidebar = () => {
             hotel.length > 0 ? (
               hotel.map((element, index) => {
                 const { name, photo , location_string} = element;
-                const cardImg = photo?.images?.original?.url; // Use optional chaining to avoid errors
+                const cardImg = photo?.images?.original?.url; 
                 const defaultImg =
                   "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80";
   
@@ -79,10 +87,10 @@ const Sidebar = () => {
                 );
               })
             ) : (
-              <p>No hotel data available.</p>
+              <p>Fetching hotel data....</p>
             )
           ) : (
-            <p>Fetching data...</p>
+            <p>It might seems you network is slow...</p>
           )}
         </div>
       </>
