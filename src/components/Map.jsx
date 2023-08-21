@@ -6,9 +6,19 @@ const Map = () => {
     
   const {coordinates} = useCoordinateContext();
 
+  const pushPin = {
+    center: coordinates,
+    options: {
+     
+    },
+  }
+  
+  const pushPins = [pushPin];
+  
+  const bingMapApiKey = "AqGrMcJvoHh0AwTxWEVhPsT4sdT5xxgOVRe_T-CUas8poD6tGAQuuMLGDBDHDMDj"
     return (
         <BingMapsReact
-          bingMapsKey="AqGrMcJvoHh0AwTxWEVhPsT4sdT5xxgOVRe_T-CUas8poD6tGAQuuMLGDBDHDMDj"
+          bingMapsKey={bingMapApiKey}
         
           mapOptions={{
             navigationBarMode: "square",
@@ -16,8 +26,9 @@ const Map = () => {
       
           viewOptions={{
             center: coordinates,
-          
+            zoom : 12
           }}
+          pushPins={pushPins}
         />
       );
 }
