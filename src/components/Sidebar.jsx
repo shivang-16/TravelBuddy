@@ -2,9 +2,11 @@ import React,{useState} from 'react'
 import { getHotel } from '../apis/Hotel'
 import { useCoordinateContext } from './CoordinateContext'
 const Sidebar = () => {
+
     const [hotel, setHotel] = useState([]);
     const { setCoordinates } = useCoordinateContext();
     const [place, setPlace] = useState("")
+    
     const handleSearch = async () => {
       if (place) {
         const bingMapKey = "AqGrMcJvoHh0AwTxWEVhPsT4sdT5xxgOVRe_T-CUas8poD6tGAQuuMLGDBDHDMDj";
