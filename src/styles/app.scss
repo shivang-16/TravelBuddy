@@ -1,0 +1,190 @@
+@import url(https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Libre+Baskerville:ital@1&family=Mukta:wght@600&family=Playfair:wght@800&family=Poppins:wght@200&family=Roboto:wght@300;400&display=swap );
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Amazon Ember",Arial,sans-serif;
+    color: black;
+    // border: 2px solid red;
+}
+body{
+    height: 100vh;
+    overflow: hidden;
+    // background-color: black;
+}
+// body::before{
+//     content: "";
+//     position: absolute;
+//     height: 100%;
+//     width: 100%;
+//     background-image: url(https://www.goatsontheroad.com/wp-content/uploads/2017/10/vietnam-1745819_1280_opt.jpg) ;
+//     background-repeat: no-repeat;
+//     background-size: cover;
+//     z-index: -1;
+//     opacity: 0.5;
+// }
+nav{
+    // border: 2px solid red;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    // padding: 0px 10px;
+    // backgroun: rgb(17, 99, 85);
+    position: relative;
+   
+}
+nav::before{
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, rgb(2, 46, 41), rgb(34, 132, 108));
+    z-index: -1;
+    opacity: 0.7;
+}
+.nav-brand{
+    padding: 0px 10px;
+    >p{
+        font-size: 14px;
+        color: rgb(209, 209, 209);
+        margin: 0px 3px;
+    }
+
+}
+
+.landing-page{
+    // border: 2px solid blue;
+    height: 92vh;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+
+}
+.landing-heading{
+    p{
+        margin: 0px 5px;
+    }
+    h1{
+        font-size: 70px;
+    }
+    button{
+        padding: 10px;
+        margin: 5px 10px;
+        background: transparent;
+        
+    }
+}
+
+.travel-page-area{
+    height: 100vh;
+    // border: 2px solid red;
+    display: flex;
+}
+.travel-page-section{
+     width: 100%;
+    //  border: 1px solid blue;
+}
+.sidebar-area{
+    //  padding: 10px;
+    //  overflow: scroll;
+    box-shadow: 0px 3px 5px black;
+}
+.side-bar-card-area{
+    // border: 2px solid green;
+    // height: 32px;
+    padding: 0px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll;
+    height: 800px;
+}
+
+.map-area{
+    width: 260%;
+    // border: 2px solid red;
+}
+
+.search-bar{
+    // border: 1px solid red;
+    text-align: center;
+    padding: 20px;
+   
+    >input[type="search"]{
+      width: 200px;
+      height: 40px;
+      border-radius: 8px;
+      padding: 0px 10px;
+    }
+}
+
+
+.event-content-section{
+   
+    width: 360px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 4px rgb(192, 192, 192);
+    padding-bottom: 5px;
+    margin: 10px 0px;
+   
+}
+.card-image{
+    // border: 1px solid blue;
+    height: 200px;
+    // width: 280px;
+    // padding: 0px 30px;
+
+    img{
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+    }
+}
+.content-box{
+    display: flex;
+    align-items: center;
+}
+.card-heading{
+    /* border: 2px solid red; */
+    position: relative;
+    // margin-bottom: 10px;
+    padding: 0px 5px;
+    img{
+        position: absolute;
+        right: 0;
+        height: 20px;
+        border: 2px solid rgb(208, 208, 208);
+        border-radius: 8px;
+        padding: 5px ;
+
+        &:hover{
+            border-color: rgb(230, 116, 116);
+            cursor: pointer;
+        }
+    }
+}
+
+
+.card-details{
+    padding: 5px 5px;
+    img{
+        height: 24px;
+        margin-right: 10px;
+     }
+
+     &:nth-child(6){
+        background-color: rgb(247, 247, 247);
+        // width: 100%;
+        color: rgb(6, 148, 243);
+        border-radius: 10px;
+        margin: 10px;
+        text-align: center;
+
+        img{
+            margin: 0px 15px 0px 20px;
+            height: 20px;
+        }
+     }
+    
+}
+
