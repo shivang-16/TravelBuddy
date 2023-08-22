@@ -6,6 +6,7 @@ const Travel = () => {
   const [place, setPlace] = useState("");
   const [coordinates, setCoordinates] = useState("");
   const [type, setType] = useState("");
+  const [hotelCoordinates, setHotelCoordinates] = useState('');
 
   return (
     <div className="travel-page-area">
@@ -16,10 +17,13 @@ const Travel = () => {
           type={type}
           setType={setType}
           setCoordinates={setCoordinates}
+          setHotelCoordinates={setHotelCoordinates}
         />
       </div>
       <div className="map-area travel-page-section">
-        <Map coordinates={coordinates} />
+        <Map coordinates={coordinates} 
+             hotelCoordinates={hotelCoordinates}
+              />
       </div>
     </div>
   );

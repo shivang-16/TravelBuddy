@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getHotel } from "../apis/Hotel";
 
-const Sidebar = ({ place, setPlace, type, setType, setCoordinates }) => {
+const Sidebar = ({ place, setPlace, type, setType, setCoordinates, setHotelCoordinates }) => {
   const [hotel, setHotel] = useState([]);
 
   const handleSearch = async () => {
@@ -28,8 +28,14 @@ const Sidebar = ({ place, setPlace, type, setType, setCoordinates }) => {
         console.log(hotelData);
 
         setCoordinates({ latitude, longitude });
-
+        
+        const hotelCoordinates = hotelData.map((hotel)=>({
+          latitude: hotel.latitude,
+          longitude: hotel.longitude,
+          
+        }))
         // console.log(hotelCoordinates)
+        setHotelCoordinates(hotelCoordinates);
       } catch (error) {
         console.log(error);
         setHotel([]);
