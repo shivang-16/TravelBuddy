@@ -1,14 +1,12 @@
-import React from 'react'
-import Travel from './components/TravelPage'
-import './styles/app.scss'
+import React from "react";
+import Travel from "./components/TravelPage";
+import "./styles/app.scss";
 function App() {
-
-
   return (
     <>
-    <Travel/>
+      <Travel />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
