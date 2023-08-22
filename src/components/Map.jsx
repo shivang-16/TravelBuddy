@@ -1,8 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BingMapsReact from "bingmaps-react";
-const Map = ({ coordinates }) => {
+
+
+const CustomPushpin = ({ name, imageUrl }) => (
+  <div className="custom-pushpin">
+    <img src={imageUrl} alt={name} />
+    <p>{name}</p>
+  </div>
+);
+const Map = ({ coordinates, hotelCoordinates }) => {
+  const [pushPins, setPushPins] = useState([]);
+
+  useEffect(() => {
+    if (hotelCoordinates && hotelCoordinates.length > 0) {
+      const newPushPins = [
+        {
+          center: coordinates,
+          options: {},
+        },
+        // Add pushpins for each hotel coordinate
+        ...hotelCoordinates.map((coord, index) => ({
+          center: coord,
+          options: {
+            title: `Hotel ${index + 1}`,
+            // Custom pushpin
+            htmlContent: (
+              <CustomPushpin
+                name={`Hotel ${index + 1}`}
+                imageUrl="path/to/hotel-image.jpg"
+              />
+            ),
+          },
+        })),
+      ];
+      setPushPins(newPushPins);
+    }
+  }, [coordinates, hotelCoordinates]);
+
   const bingMapApiKey =
     "AqGrMcJvoHh0AwTxWEVhPsT4sdT5xxgOVRe_T-CUas8poD6tGAQuuMLGDBDHDMDj";
+
   return (
     <BingMapsReact
       bingMapsKey={bingMapApiKey}
@@ -11,8 +48,9 @@ const Map = ({ coordinates }) => {
       }}
       viewOptions={{
         center: coordinates,
-        zoom: 12,
+        zoom: 15,
       }}
+      pushPins={pushPins}
     />
   );
 };
