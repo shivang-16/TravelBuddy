@@ -15,8 +15,8 @@ export const getHotel = async (latitude, longitude, type = "restaurants") => {
       lang: "en_US",
     },
     headers: {
-      "X-RapidAPI-Key": "041e69f866msh0d1a1ade0bd9dd7p1bb269jsnbca2d0d21969",
-      "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
+      'X-RapidAPI-Key': 'ae33d9f510msha9d8492cf2d67c4p12aedfjsnd38c6838684e',
+      'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
     },
   };
   try {
