@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
 import BingMapsReact from "bingmaps-react";
 
-
-const CustomPushpin = ({ name, imageUrl }) => (
-  <div className="custom-pushpin">
-    <img src={imageUrl} alt={name} />
-    <p>{name}</p>
-  </div>
-);
 const Map = ({ coordinates, hotelCoordinates }) => {
   const [pushPins, setPushPins] = useState([]);
 
@@ -24,18 +17,14 @@ const Map = ({ coordinates, hotelCoordinates }) => {
           options: {
             title: `Hotel ${index + 1}`,
             // Custom pushpin
-            htmlContent: (
-              <CustomPushpin
-                name={`Hotel ${index + 1}`}
-                imageUrl="path/to/hotel-image.jpg"
-              />
-            ),
+            
           },
         })),
       ];
       setPushPins(newPushPins);
     }
   }, [coordinates, hotelCoordinates]);
+
 
   const bingMapApiKey =
     "AqGrMcJvoHh0AwTxWEVhPsT4sdT5xxgOVRe_T-CUas8poD6tGAQuuMLGDBDHDMDj";
