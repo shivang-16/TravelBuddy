@@ -6,6 +6,7 @@ const Travel = () => {
   const [place, setPlace] = useState("");
   const [coordinates, setCoordinates] = useState("");
   const [type, setType] = useState("");
+  const [rating, setRating] = useState("");
   const [hotelCoordinates, setHotelCoordinates] = useState('');
 
   return (
@@ -16,6 +17,8 @@ const Travel = () => {
           setPlace={setPlace}
           type={type}
           setType={setType}
+          rating={rating}
+          setRating={setRating}
           setCoordinates={setCoordinates}
           setHotelCoordinates={setHotelCoordinates}
         />
