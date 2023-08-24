@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const getHotel = async (latitude, longitude, type = "restaurants", rating="2") => {
   console.log(rating)
+  console.log(type)
   const options = {
     method: "GET",
     url: `https://travel-advisor.p.rapidapi.com/${type}/list-by-latlng`,

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getHotel } from "../apis/Hotel";
+import {getAirport} from "../apis/Airport";
 import Spinner from "./Spinner";
 import star from '../images/star.png'
 import  fav from '../images/fav.png'
@@ -10,6 +11,7 @@ import  search from '../images/search.png'
 const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordinates, setHotelCoordinates }) => {
   const [hotel, setHotel] = useState([]);
   const [restaurantImages, setRestaurantImages] = useState([]);
+  
   const handleSearch = async () => {
     if (place) {
       const bingMapApiKey =
@@ -26,6 +28,7 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
           console.log("Error fetching restaurant images:", error);
           setRestaurantImages([]);
         }
+
       try {
         console.log("fetching coord...");
         const response = await fetch(
@@ -63,6 +66,7 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
 
   useEffect(() => {
     handleSearch();
+    getAirport()
   }, [type, rating]);
 
   return (
@@ -168,7 +172,7 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
                 );
               })
             ) : (
-              <p> <Spinner/></p>
+              <p>Select Place and type</p>
             )
           ) : (
             <p>It might seems you network is slow...</p>
