@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { getHotel } from "../apis/Hotel";
-import {getAirport} from "../apis/Airport";
 import Spinner from "./Spinner";
 import star from '../images/star.png'
 import  fav from '../images/fav.png'
@@ -66,7 +65,6 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
 
   useEffect(() => {
     handleSearch();
-    getAirport()
   }, [type, rating]);
 
   return (
