@@ -3,11 +3,11 @@ import { getHotel } from "../apis/Hotel";
 import Spinner from "./Spinner";
 import star from '../images/star.png'
 import  fav from '../images/fav.png'
-import  date from '../images/date.png'
+import  rank from '../images/rank.png'
 import  location from '../images/location.png'
-import  people from '../images/people.png'
+import  contact from '../images/phone.png'
 import  search from '../images/search.png'
-const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordinates, setHotelCoordinates }) => {
+const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordinates, setHotelCoordinates, setHotelDetails}) => {
   const [hotel, setHotel] = useState([]);
   const [restaurantImages, setRestaurantImages] = useState([]);
   
@@ -55,7 +55,16 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
           
         }))
         // console.log(hotelCoordinates)
+        const hotelDetails = hotelData.map((hotel)=>({
+          name: hotel.name,
+          rating: hotel.rating,
+                    
+         }))
+         
+        setHotelDetails(hotelDetails);
         setHotelCoordinates(hotelCoordinates);
+
+        
       } catch (error) {
         console.log(error);
         setHotel([]);
@@ -106,7 +115,8 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
           {hotel ? (
             hotel.length > 0 ? (
               hotel.map((element, index) => {
-                const { name,  rating, num_reviews, address,phone,ranking, web_url
+                const { name,  rating, num_reviews, address,phone,ranking, web_url, open_now_text, ranking_geo, cuisine
+
                 } = element;
           
                 // const cardImg = photo?.images?.large?.url;
@@ -121,9 +131,11 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
                   stars.push(<img key={i} src={star} alt="Star"/>);
                 }
 
-                // const cuisineType = cuisine?.map((dish, i)=>({
-                //   <div className="cuisines" key={i}>dish.name</div>
-                // }))
+                const cuisineType = cuisine?.map((dish, i)=>{
+                     return <div className="cuisine" key={i}>
+                        <p>{dish.name}</p>
+                     </div>
+                })
                 
                 
                 return (
@@ -134,11 +146,12 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
 
                     <div className="content-box card-heading">
                       <h2 id="eventName">{name}</h2>
+                      <div className="open-now-box"><p>{open_now_text}</p></div>
                       <img src={fav} alt=""/>
                     </div>
                    
                     <div className="content-box card-details">
-                      {/* <img src={date} alt=""/> */}
+                      {/* <img src={rank} alt=""/> */}
                       <div className="star-img"> {rating ? (
                           <>{stars}</>
                         ) : (
@@ -147,21 +160,21 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
                       <div className="review"> {num_reviews?num_reviews + ' reviews':"no reviews"}</div>
                     </div>
                     <div className="content-box card-details">
-                      <img src={date} alt=""/>
-                      <p id="eventTotalMembers">{ranking}</p>
+                      <img src={rank} alt=""/>
+                      <p id="eventTotalMembers">{ranking?ranking:'Not available'}</p>
                     </div>
                     <div className="content-box card-details">
-                      <img src={people} alt=""/>
-                      <p id="eventTotalMembers">{phone}</p>
+                      <img src={contact} alt=""/>
+                      <p id="eventTotalMembers">{phone?phone:'Not available'}</p>
                     </div>
                     <div className="content-box card-details">
                       <img src={location} alt=""/>
-                      <p id="eventLocation">{address}</p>
+                      <p id="eventLocation">{address?address
+                      :ranking_geo}</p>
                     </div>
-                  
-                    <div className="content-box card-details">
+                   <div className="cuisine-box">{cuisineType}</div>
+                    <div className="content-box explore card-details">
                     <a href={web_url} target="_blank">
-                      {/* <img src={game} alt=""/> */}
                       <p>Explore</p>
                       </a>
                     </div>
