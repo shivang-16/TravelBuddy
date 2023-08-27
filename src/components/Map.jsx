@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import BingMapsReact from "bingmaps-react";
+import star from '../images/star.png'
 
-const Map = ({ coordinates, hotelCoordinates }) => {
+const Map = ({ coordinates, hotelCoordinates, hotelDetails }) => {
   const [pushPins, setPushPins] = useState([]);
+  const [infoboxes, setInfoboxes] = useState([]);
 
   useEffect(() => {
     if (hotelCoordinates && hotelCoordinates.length > 0) {
@@ -15,9 +17,7 @@ const Map = ({ coordinates, hotelCoordinates }) => {
         ...hotelCoordinates.map((coord, index) => ({
           center: coord,
           options: {
-            title: `Hotel ${index + 1}`,
-            // Custom pushpin
-            
+            title: `${hotelDetails[index].name} - Rating: ${hotelDetails[index].rating}`,
           },
         })),
       ];
@@ -25,6 +25,27 @@ const Map = ({ coordinates, hotelCoordinates }) => {
     }
   }, [coordinates, hotelCoordinates]);
 
+  useEffect(() => {
+    if(hotelCoordinates && hotelCoordinates.length > 0){
+    const newInfoboxes = hotelDetails.map((detail) => ({
+      options: {
+        
+        title: `${detail.name} - Rating: ${detail.rating}`,
+        description: getRatingStars(detail.rating),
+        visible: false,
+      },
+    }));
+    setInfoboxes(newInfoboxes);
+  }
+  }, [hotelDetails]);
+
+  const getRatingStars = (rating) => {
+    const starIcons = [];
+    for (let i = 0; i < rating; i++) {
+      starIcons.push('<img src="' + star + '" alt="Star" />');
+    }
+    return starIcons.join("");
+  };
 
   const bingMapApiKey =
     "AqGrMcJvoHh0AwTxWEVhPsT4sdT5xxgOVRe_T-CUas8poD6tGAQuuMLGDBDHDMDj";
@@ -37,9 +58,10 @@ const Map = ({ coordinates, hotelCoordinates }) => {
       }}
       viewOptions={{
         center: coordinates,
-        zoom: 15,
+        zoom: 12,
       }}
       pushPins={pushPins}
+      infoboxesWithPushPins={infoboxes}
     />
   );
 };
