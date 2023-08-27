@@ -8,7 +8,7 @@
   // border: 2px solid red;
 }
 body {
-  height: 100vh;
+  // height: 100vh;
   overflow: hidden;
   background-color: black;
   color: white;
@@ -16,7 +16,7 @@ body {
 main{
   // border: 2px solid red;
   height: 92vh;
-  
+  width: 100%;
   // z-index: -1;
 
 }
@@ -85,12 +85,17 @@ nav::before {
   }
 }
 
+
+
+
+// Travel page start
 .travel-page-area {
-  height: 100vh;
+  // height: 100vh;
   // border: 2px solid red;
   background-color: white;
   
   display: flex;
+  // flex-direction: column;
 }
 .travel-page-section {
   width: 100%;
@@ -101,12 +106,14 @@ nav::before {
 .sidebar-area {
   //  padding: 10px;
   //  overflow: scroll;
+  width: 45%;
   box-shadow: 0px 3px 5px black;
 }
 .side-bar-card-area {
   // border: 2px solid green;
   // height: 32px;
-
+//  width: 420px;
+// margin: 0px 20px 0px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -157,17 +164,27 @@ nav::before {
   display: flex;
   align-items: flex-start;
   // justify-content: flex-end;
-  margin: 20px 0px;
+  margin: 20px 0px 10px 0px;
   padding: 0px 20px;
-
+ 
   // height: 20px;
 
   > select {
     border: none;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid rgb(228, 228, 228);
     margin-right: 15px;
     outline: none;
+    font-size: 16px;
+    color: rgb(90, 90, 90);
+
+    option{
+      height: 300px;
+      padding: 20px;
+    }
   }
+}
+.dropdown-options{
+  padding: 20px;
 }
 .sidebar-content {
   // border: 1px solid red;
@@ -185,7 +202,7 @@ nav::before {
   border-radius: 8px;
   box-shadow: 2px 2px 5px rgb(192, 192, 192);
   padding-bottom: 5px;
-  margin: 10px auto;
+  margin: 10px 20px;
  
 }
 .card-image {
@@ -314,16 +331,17 @@ display: flex;
 
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
+  // margin-left: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #888;
+  background-color: #bcbcbc;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
+  background-color: #9d9d9d;
 }
 
 /* Style the scrollbar track */
@@ -339,7 +357,7 @@ display: flex;
   display: inline-block;
   position: relative;
   border: 3px solid;
-  border-color: #ec1717 #e41212 transparent;
+  border-color: #ffffff #ffffff transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
  
@@ -381,3 +399,67 @@ display: flex;
   }
 }
     
+
+@media screen and (max-width: 800px) {
+  body{
+    overflow: scroll;
+    // height: 200vh;
+  }
+  .travel-page-area {
+    display: flex;
+    // border: 3px solid red;
+    // flex-direction: column;
+    flex-direction: column-reverse;
+  }
+  .sidebar-area {
+  //  display: flex;
+    width: 100%;
+    box-shadow: 0px 3px 5px black;
+  }
+  .side-bar-card-area {
+ 
+    display: flex;
+    // // flex-direction: column;
+    // flex-direction: row;
+    align-items: center;
+  }
+  .map-area{
+     width: 100%;
+     height: 300px;
+    //  border: 3px solid blue;
+  }
+  .sidebar-content {
+    // border: 1px solid rgb(0, 51, 255);
+    overflow: auto;
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    // flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    // align-items: center;
+    // margin: 10px auto;
+    // justify-content: center;
+  
+  }
+  .event-content-section {
+    // width: 270px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgb(192, 192, 192);
+    padding-bottom: 5px;
+    margin: 10px 23px;
+    
+  }
+  .card-image{
+    height: 330px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .card-image{
+    height: 200px;
+  }
+}
