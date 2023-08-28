@@ -50,30 +50,31 @@ const Sidebar = ({
       }
 
       try {
-        console.log("fetching coord...");
+        
         const response = await fetch(
-          `http://dev.virtualearth.net/REST/v1/Locations?q=${encodeURIComponent(
+          `https://dev.virtualearth.net/REST/v1/Locations?q=${encodeURIComponent(
             place,
-          )}&key=${bingMapApiKey}`,
+          )}&key=${bingMapApiKey}`
         );
+        
 
         const coordinates = await response.json();
         const location =
           coordinates.resourceSets[0].resources[0].point.coordinates;
         const [latitude, longitude] = location;
-        console.log(location);
+      
 
         const weatherData = await getWeather(latitude, longitude);
-        console.log(weatherData);
+       
         if (weatherData) {
           const weatherMain = weatherData.weather[0].main;
           const weatherIcon = weatherData.weather[0].icon;
 
-          console.log(weatherMain);
+          
 
           // Assuming you have a weather icons collection
           const weatherIconUrl = `https://openweathermap.org/img/w/${weatherIcon}.png`;
-          console.log(weatherIconUrl);
+          
           setWeather({
             icon: weatherIconUrl,
             desc: weatherMain,
@@ -86,7 +87,6 @@ const Sidebar = ({
         // Fetching hotel data
         const hotelData = await getHotel(latitude, longitude, type, rating);
         setHotel(hotelData);
-        console.log(hotelData);
 
         setCoordinates({ latitude, longitude });
 
@@ -94,7 +94,7 @@ const Sidebar = ({
           latitude: hotel.latitude,
           longitude: hotel.longitude,
         }));
-        // console.log(hotelCoordinates)
+
         const hotelDetails = hotelData.map((hotel) => ({
           name: hotel.name,
           rating: hotel.rating,
@@ -263,7 +263,7 @@ const Sidebar = ({
                 );
               })
             ) : (
-              <p
+              <p className="warn-para"
                 style={{
                   fontSize: "20px",
                   opacity: "0.6",

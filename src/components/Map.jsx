@@ -57,7 +57,7 @@ const Map = ({ coordinates, hotelCoordinates, hotelDetails }) => {
       }}
       viewOptions={{
         center: coordinates,
-        zoom: 15,
+        zoom: 13,
       }}
       pushPins={pushPins}
       infoboxesWithPushPins={infoboxes}
