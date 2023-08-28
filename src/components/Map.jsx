@@ -62,7 +62,6 @@ const Map = ({ coordinates, hotelCoordinates, hotelDetails }) => {
       }}
       pushPins={pushPins}
       infoboxesWithPushPins={infoboxes}
-      // style={{ height: "100%", width: "100%" }}
     />
   );
 };
