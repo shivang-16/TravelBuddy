@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import BingMapsReact from "bingmaps-react";
-import star from '../images/star.png'
+import star from "../images/star.png";
 
 const Map = ({ coordinates, hotelCoordinates, hotelDetails }) => {
   const [pushPins, setPushPins] = useState([]);
@@ -26,17 +26,16 @@ const Map = ({ coordinates, hotelCoordinates, hotelDetails }) => {
   }, [coordinates, hotelCoordinates]);
 
   useEffect(() => {
-    if(hotelCoordinates && hotelCoordinates.length > 0){
-    const newInfoboxes = hotelDetails.map((detail) => ({
-      options: {
-        
-        title: `${detail.name} - Rating: ${detail.rating}`,
-        description: getRatingStars(detail.rating),
-        visible: false,
-      },
-    }));
-    setInfoboxes(newInfoboxes);
-  }
+    if (hotelCoordinates && hotelCoordinates.length > 0) {
+      const newInfoboxes = hotelDetails.map((detail) => ({
+        options: {
+          title: `${detail.name} - Rating: ${detail.rating}`,
+          description: getRatingStars(detail.rating),
+          visible: false,
+        },
+      }));
+      setInfoboxes(newInfoboxes);
+    }
   }, [hotelDetails]);
 
   const getRatingStars = (rating) => {
