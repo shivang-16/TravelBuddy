@@ -59,7 +59,6 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
           const weatherMain = weatherData.weather[0].main;
           const weatherIcon = weatherData.weather[0].icon;
   
-          // setWeather(weatherMain);
           console.log(weatherMain)
   
           // Assuming you have a weather icons collection
@@ -110,7 +109,6 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
 
   useEffect(() => {
     handleSearch();
-    // Weather();
   }, [type, rating, getWeather]);
 
   return (
@@ -166,13 +164,8 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
             hotel.length > 0 ? (
               hotel.map((element, index) => {
                 const { name,  rating, num_reviews, address,phone,ranking, web_url, open_now_text, ranking_geo, cuisine, price_level
-
-
                 } = element;
           
-                // const cardImg = photo?.images?.large?.url;
-                // const defaultImg =
-                //   "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80";
                 
                 const randomIndex = Math.floor(Math.random() * restaurantImages.length);
                 const randomRestaurantImage = restaurantImages[randomIndex];
@@ -205,7 +198,6 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
                     </div>
                    
                     <div className="content-box card-details">
-                      {/* <img src={rank} alt=""/> */}
                       <div className="star-img"> {rating ? (
                           <>{stars}</>
                         ) : (
@@ -241,8 +233,7 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
                 );
               })
             ) : (
-              // <p style={{marginTop:'100px', fontSize:'20px', opacity:'0.6', width:'300px', margin:'auto'}}> Search any <strong>Place</strong>  and <strong>select category.</strong> </p>
-              <></>
+              <p style={{ fontSize:'20px', opacity:'0.6', width:'300px', margin:'70px auto'}}> Search any <strong>Place</strong>  and <strong>select category.</strong> </p>
             )
           ) : (
             <p>It might seems you network is slow. Error fetcing data. <strong>Try again</strong></p>
