@@ -6,8 +6,7 @@ export const getHotel = async (
   type = "restaurants",
   rating = "2",
 ) => {
-  console.log(rating);
-  console.log(type);
+
   const options = {
     method: "GET",
     url: `https://travel-advisor.p.rapidapi.com/${type}/list-by-latlng`,
@@ -22,11 +21,9 @@ export const getHotel = async (
     },
   };
   try {
-    console.log("fetching data...");
     const {
       data: { data },
     } = await axios.request(options);
-    console.log("data fetched");
     return data;
   } catch (error) {
     console.error(error);

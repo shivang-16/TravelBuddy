@@ -12,10 +12,7 @@ const LandingPage = () => {
           </p>
           <div className="para">
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Reiciendis, eum in vitae culpa accusamus neque. Nostrum molestiae
-              eos enim, perspiciatis in fugit sed ipsa quisquam sapiente debitis
-              provident dicta rem eligendi quo ab qui?
+            Discover your perfect travel companion with Travel Buddy. Connect, plan, and explore the world together, creating unforgettable journeys and lasting memories.Find like-minded adventurers for seamless travels and shared experiences.
             </p>
           </div>
           <Link to="/travel">
