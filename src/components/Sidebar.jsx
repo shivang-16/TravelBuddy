@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getHotel } from "../apis/Hotel";
+import { getWeather } from "../apis/Weather";
 import Spinner from "./Spinner";
 import star from '../images/star.png'
 import  fav from '../images/fav.png'
@@ -10,21 +11,31 @@ import  search from '../images/search.png'
 const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordinates, setHotelCoordinates, setHotelDetails}) => {
   const [hotel, setHotel] = useState([]);
   const [restaurantImages, setRestaurantImages] = useState([]);
-  
+  const [loading, setLoading] = useState(false);
+  const [weather, setWeather] = useState('')
   const handleSearch = async () => {
+    setLoading(true);
     if (place) {
       const bingMapApiKey =
         "AqGrMcJvoHh0AwTxWEVhPsT4sdT5xxgOVRe_T-CUas8poD6tGAQuuMLGDBDHDMDj";
 
         try {
+          let pixabayCategory = "restaurants + cuisines"; // Default category for images
+          if (type === "hotels") {
+            pixabayCategory = "hotels";
+          } else if (type === "attractions") {
+            pixabayCategory = "attractions";
+          }
+    
           const pixabayApiKey = "39008680-8cca2ad820e4d89df9f8efa13";
+          const randomPage = Math.floor(Math.random() * 20) + 1;
           const response = await fetch(
-            `https://pixabay.com/api/?key=${pixabayApiKey}&q=restaurants+cuisines&image_type=photo&pretty=true`
+            `https://pixabay.com/api/?key=${pixabayApiKey}&q=${pixabayCategory}&image_type=photo&pretty=true&page=${randomPage}`
           );
           const data = await response.json();
           setRestaurantImages(data.hits);
         } catch (error) {
-          console.log("Error fetching restaurant images:", error);
+          console.log("Error fetching images:", error);
           setRestaurantImages([]);
         }
 
@@ -41,7 +52,30 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
           coordinates.resourceSets[0].resources[0].point.coordinates;
         const [latitude, longitude] = location;
         console.log(location);
+        
+        const weatherData = await getWeather(latitude, longitude);
+        console.log(weatherData)
+        if (weatherData) {
+          const weatherMain = weatherData.weather[0].main;
+          const weatherIcon = weatherData.weather[0].icon;
+  
+          // setWeather(weatherMain);
+          console.log(weatherMain)
+  
+          // Assuming you have a weather icons collection
+          const weatherIconUrl = `https://openweathermap.org/img/w/${weatherIcon}.png`;
+           console.log(weatherIconUrl)
+          setWeather({
+            icon: weatherIconUrl,
+            desc: weatherMain
 
+          })
+          // Update the state variable where you want to use the weather icon URL
+        } else {
+          setWeather('Weather data not available');
+        }
+
+        
         // Fetching hotel data
         const hotelData = await getHotel(latitude, longitude, type, rating);
         setHotel(hotelData);
@@ -61,6 +95,7 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
                     
          }))
          
+       
         setHotelDetails(hotelDetails);
         setHotelCoordinates(hotelCoordinates);
 
@@ -70,11 +105,13 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
         setHotel([]);
       }
     }
+    setLoading(false);
   };
 
   useEffect(() => {
     handleSearch();
-  }, [type, rating]);
+    // Weather();
+  }, [type, rating, getWeather]);
 
   return (
     <>
@@ -95,10 +132,11 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
               value={type}
               onChange={(e) => setType(e.target.value)}
             >
+              <option value="" defaultChecked>Category</option>
               <option value="restaurants">Restaurants</option>
               <option value="hotels">Hotels</option>
-              <option value="attractions">Attraction</option>
-              <option value="flight">Flight</option>
+              <option value="attractions">Attractions</option>
+              
             </select>
             <select id="rating"  value={rating}
               onChange={(e) => setRating(e.target.value)}>
@@ -109,13 +147,26 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
               
             </select>
           </div>
+       
         </div>
+        <div className="weather">
+           
+           {loading ? <p>Loading weather...</p> : (
+             weather ?
+              <div>
+               <h2>Weather</h2> 
+               <div><img src={weather.icon} alt="Weather Icon" /> <p>{weather.desc}</p>
+               </div>
+               </div> : <p>Weather Data...</p>
+           )}
+         </div>
         <div className="sidebar-content">
-         
-          {hotel ? (
+     
+          {loading ? (<Spinner/>) : hotel ? (
             hotel.length > 0 ? (
               hotel.map((element, index) => {
-                const { name,  rating, num_reviews, address,phone,ranking, web_url, open_now_text, ranking_geo, cuisine
+                const { name,  rating, num_reviews, address,phone,ranking, web_url, open_now_text, ranking_geo, cuisine, price_level
+
 
                 } = element;
           
@@ -125,6 +176,7 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
                 
                 const randomIndex = Math.floor(Math.random() * restaurantImages.length);
                 const randomRestaurantImage = restaurantImages[randomIndex];
+                 const restaurantImageUrl = randomRestaurantImage?.    largeImageURL;
 
                 const stars = [];
                 for (let i = 0; i < rating; i++) {
@@ -139,9 +191,11 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
                 
                 
                 return (
-                  <div className="event-content-section" key={index}>
+              
+  
+                  <div className="event-content-section" key={index}>                
                     <div className="card-image">
-                    <img src={randomRestaurantImage.webformatURL} alt="Restaurant" />
+                    <img src={restaurantImageUrl} alt="Restaurant" />
                     </div>
 
                     <div className="content-box card-heading">
@@ -158,6 +212,9 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
                           'No rating'
                         )}</div>
                       <div className="review"> {num_reviews?num_reviews + ' reviews':"no reviews"}</div>
+                    </div>
+                    <div className="price">
+                      <p>{price_level}</p>
                     </div>
                     <div className="content-box card-details">
                       <img src={rank} alt=""/>
@@ -180,15 +237,18 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
                     </div>
                    
                   </div>
+                
                 );
               })
             ) : (
-              <p>Select Place and type</p>
+              // <p style={{marginTop:'100px', fontSize:'20px', opacity:'0.6', width:'300px', margin:'auto'}}> Search any <strong>Place</strong>  and <strong>select category.</strong> </p>
+              <></>
             )
           ) : (
-            <p>It might seems you network is slow...</p>
+            <p>It might seems you network is slow. Error fetcing data. <strong>Try again</strong></p>
           )}
         </div>
+      
       </div>
     </>
   );

@@ -58,10 +58,11 @@ const Map = ({ coordinates, hotelCoordinates, hotelDetails }) => {
       }}
       viewOptions={{
         center: coordinates,
-        zoom: 12,
+        zoom: 15,
       }}
       pushPins={pushPins}
       infoboxesWithPushPins={infoboxes}
+      // style={{ height: "100%", width: "100%" }}
     />
   );
 };
