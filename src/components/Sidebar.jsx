@@ -12,13 +12,14 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
   const [hotel, setHotel] = useState([]);
   const [restaurantImages, setRestaurantImages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [weather, setWeather] = useState('')
+  const [weather, setWeather] = useState('');
+
   const handleSearch = async () => {
     setLoading(true);
     if (place) {
-      const bingMapApiKey =
-        "AqGrMcJvoHh0AwTxWEVhPsT4sdT5xxgOVRe_T-CUas8poD6tGAQuuMLGDBDHDMDj";
-
+      const bingMapApiKey = import.meta.env.VITE_APP_BING_MAP_API;
+      
+      
         try {
           let pixabayCategory = "restaurants + cuisines"; // Default category for images
           if (type === "hotels") {
@@ -27,7 +28,7 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
             pixabayCategory = "attractions";
           }
     
-          const pixabayApiKey = "39008680-8cca2ad820e4d89df9f8efa13";
+          const pixabayApiKey = import.meta.env.VITE_APP_PHOTO_API;
           const randomPage = Math.floor(Math.random() * 20) + 1;
           const response = await fetch(
             `https://pixabay.com/api/?key=${pixabayApiKey}&q=${pixabayCategory}&image_type=photo&pretty=true&page=${randomPage}`
@@ -149,13 +150,13 @@ const Sidebar = ({ place, setPlace, type, setType, rating, setRating, setCoordin
         </div>
         <div className="weather">
            
-           {loading ? <p>Loading weather...</p> : (
+           {loading ? <p></p> : (
              weather ?
               <div>
                <h2>Weather</h2> 
                <div><img src={weather.icon} alt="Weather Icon" /> <p>{weather.desc}</p>
                </div>
-               </div> : <p>Weather Data...</p>
+               </div> : <p>...</p>
            )}
          </div>
         <div className="sidebar-content">
