@@ -1,7 +1,5 @@
 const imageData = {
-    images: [
-     
-    ],
+  images: [],
 };
 
 export default imageData;
