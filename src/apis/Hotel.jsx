@@ -12,7 +12,7 @@ export const getHotel = async (latitude, longitude, type = "restaurants", rating
       min_rating: rating
     },
     headers: {
-      'X-RapidAPI-Key': '78dff1a885mshed896939e16eab9p15b5c0jsna3e2616ea273',
+      'X-RapidAPI-Key': import.meta.env.VITE_APP_TRAVEL_API,
       'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
     }
   };
