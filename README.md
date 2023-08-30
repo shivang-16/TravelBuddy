@@ -1,4 +1,4 @@
-# TravelBuddy - Your ultimate travel companion app(in progress)
+# TravelBuddy - Your ultimate travel companion app
 
 To run the code->    
 1> Clone the repository   
